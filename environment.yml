@@ -58,6 +58,7 @@ dependencies:
  - panel
  - parcels
  - param!=1.11.0
+ - pip
  - pip:
     - git+https://github.com/OpenHydrology/lmoments3.git
     - rpy2==3.3.3
@@ -86,6 +87,7 @@ dependencies:
  - scipy
  - sparse
  - stackstac
+ - statsmodels
  - tiledb-py
  - timezonefinder
  - xarray
