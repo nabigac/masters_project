@@ -21,10 +21,12 @@ dependencies:
  - erddapy
  - esmpy
  - fastjmd95
+ - firefox
  - fsspec
  - fsspec-reference-maker
  - gcsfs
  - gh
+ - geckodriver
  - geocube
  - geopandas
  - geopy
@@ -71,6 +73,7 @@ dependencies:
  - pygeos
  - pystac
  - python-blosc
+ - python-chromedriver-binary
  - python-gist
  - python-graphviz
  - rasterio
@@ -86,6 +89,7 @@ dependencies:
  - scikit-image
  - scikit-learn
  - scipy
+ - selenium
  - sparse
  - stackstac
  - statsmodels
