@@ -62,6 +62,7 @@ dependencies:
  - pip:
     - git+https://github.com/OpenHydrology/lmoments3.git
     - rpy2==3.3.3
+    - regionmask
  - prefect
  - pyarrow
  - pycamhd
