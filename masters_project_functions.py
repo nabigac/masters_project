@@ -1,5 +1,11 @@
-# list of functions
-
+########################################
+#                                      #
+# MASTERS PROJECT FUNCTIONS            #
+#                                      #
+# NABIG CHAUDHRY                       #
+#                                      #
+#                                      #
+########################################
 #####################################################################
 # import packages
 
@@ -13,7 +19,9 @@ from lmoments3 import distr as ldistr
 from lmoments3 import stats as lstats
 
 #####################################################################
-# get lmoments
+# GET L-MOMENTS
+# input: annual maximum series
+# export: xarray dataset of l-moments
 
 def get_lmoments(ams):
     
@@ -38,7 +46,9 @@ def get_lmoments(ams):
     return new_ds
 
 #####################################################################
-# get ks stat
+# GET KS-STAT
+# input: annual maximum series
+# export: xarray dataset of ks test d-statistics and p-values
 
 def get_ks_stat(ams):
 
@@ -84,7 +94,9 @@ def get_ks_stat(ams):
     return new_ds
 
 #####################################################################
-# get bootstrap
+# GET BOOTSTRAP
+# input: annual maximum series and relevant parameters
+# export: boostrap-calculated value for relevant parameters
 
 def bootstrap(ams, data_variable="return_value", arg_value=10):
         
@@ -113,7 +125,9 @@ def bootstrap(ams, data_variable="return_value", arg_value=10):
     return result
 
 #####################################################################
-# get return value
+# GET RETURN VALUE
+# input: annual maximum series and relevant parameters
+# export: xarray dataset with return values and confidence intervals
 
 def get_return_value(ams, return_period=10, bootstrap_runs=100,
                     conf_int_lower_bound=2.5, conf_int_upper_bound=97.5):
@@ -140,34 +154,61 @@ def get_return_value(ams, return_period=10, bootstrap_runs=100,
             bootstrap_values.append(result)
         conf_int_array = np.percentile(bootstrap_values, [conf_int_lower_bound,
                                                           conf_int_upper_bound])
-        conf_int = tuple(conf_int_array)
+        conf_int_lower_limit = conf_int_array[0]
+        conf_int_upper_limit = conf_int_array[1]
 
-        return return_value, conf_int
+        return return_value, conf_int_lower_limit, conf_int_upper_limit
 
     
-    return_value, conf_int = xr.apply_ufunc(
-                                return_value,
-                                ams,
-                                input_core_dims=[["time"]],
-                                exclude_dims=set(("time",)),
-                                output_core_dims=[[],[]]
+    return_value, conf_int_lower_limit, conf_int_upper_limit = xr.apply_ufunc(
+                                                                return_value,
+                                                                ams,
+                                                                input_core_dims=[["time"]],
+                                                                exclude_dims=set(("time",)),
+                                                                output_core_dims=[[],[],[]]
     )
 
     return_value = return_value.rename("return_value")
     new_ds = return_value.to_dataset()
-    new_ds["conf_int"] = conf_int
+    new_ds["conf_int_lower_limit"] = conf_int_lower_limit
+    new_ds["conf_int_upper_limit"] = conf_int_upper_limit
     
     new_ds = new_ds.unstack("allpoints")
         
     new_ds["return_value"].attrs["return period"] = "1 in {} year event".format(str(return_period))
-    new_ds["conf_int"].attrs["confidence interval bounds"] = "({}th percentile, {}th percentile)".format(str(conf_int_lower_bound), str(conf_int_upper_bound))
+    new_ds["conf_int_lower_limit"].attrs["confidence interval lower bound"] = "{}th percentile".format(str(conf_int_lower_bound))
+    new_ds["conf_int_upper_limit"].attrs["confidence interval upper bound"] = "{}th percentile".format(str(conf_int_upper_bound))
     new_ds.attrs = ams_attributes
     new_ds.attrs["distribution"] = "gev"
 
     return new_ds
 
 #####################################################################
-# get return probability
+# GET PERCENT CHANGE
+# input: two xarray datasets
+# export: xarray dataarray with percent change
+
+def get_percent_change(ds_1, ds_2, data_variable='return_value'):
+    
+    ds_attributes = ds_1.attrs
+    
+    da_1 = ds_1[data_variable]
+    da_2 = ds_2[data_variable]
+
+    percent_change = (da_2-da_1)/da_1
+    
+    percent_change = percent_change.rename("percent_change")
+    new_ds = percent_change.to_dataset()
+    
+    new_ds.attrs = ds_attributes
+    new_ds.attrs["method"] = 'percent_change'
+    
+    return new_ds
+
+#####################################################################
+# GET RETURN PROBABILITY
+# input: annual maximum series and relevant parameters
+# export: xarray dataset with return probabilities and confidence intervals
 
 def get_return_prob(ams, threshold, bootstrap_runs=1000,
                     conf_int_lower_bound=2.5, conf_int_upper_bound=97.5):
