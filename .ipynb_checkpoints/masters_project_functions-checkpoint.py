@@ -206,6 +206,21 @@ def get_percent_change(ds_1, ds_2, data_variable='return_value'):
     return new_ds
 
 #####################################################################
+# GET FLAT ARRAY
+# input: xarray dataset
+# export: flattened numpy array
+
+def get_flat_array(ds, data_variable='return_value', remove_nans=True):
+    
+    array = ds[data_variable].to_numpy()
+    flat_array = array.flatten()
+    
+    if remove_nans:
+        flat_array = flat_array[~np.isnan(flat_array)]
+    
+    return flat_array
+
+#####################################################################
 # GET RETURN PROBABILITY
 # input: annual maximum series and relevant parameters
 # export: xarray dataset with return probabilities and confidence intervals
