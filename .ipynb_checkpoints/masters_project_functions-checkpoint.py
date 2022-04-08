@@ -188,7 +188,7 @@ def get_return_value(ams, return_period=10, bootstrap_runs=100,
 # input: two xarray datasets
 # export: xarray dataarray with percent change
 
-def get_percent_change(ds_1, ds_2, data_variable='return_value'):
+def get_percent_change(ds_1, ds_2, data_variable='return_value', percent=True):
     
     ds_attributes = ds_1.attrs
     
@@ -196,6 +196,9 @@ def get_percent_change(ds_1, ds_2, data_variable='return_value'):
     da_2 = ds_2[data_variable]
 
     percent_change = (da_2-da_1)/da_1
+    
+    if percent:
+        percent_change = percent_change*100
     
     percent_change = percent_change.rename("percent_change")
     new_ds = percent_change.to_dataset()
