@@ -10,7 +10,7 @@
   width="45%"
 />
 
-**A repository containing the code, datasets, visualizations, and data products that correspond to the analytics in the UC Berkeley Energy & Resources Master's Project paper by Nabig Chaudhry.**
+**A repository containing the code, datasets, visualizations, and data products that correspond to the analytics presented in the UC Berkeley Energy & Resources Master's Project paper by Nabig Chaudhry.**
 
 Please contact nabigac@berkeley.edu if you have any questions or issues regarding the code.
 <br />
@@ -22,25 +22,25 @@ Climate change will alter extreme weather event exposure and consequently intens
 ### File Directory
 ```
 ├── data
-│   ├── intial_resampled            <- Initial annual maximum series datasets resampled from raw GCM data.
+│   ├── intial_resampled            <- Initial annual maximum series datasets resampled from raw climate models.
 │   │   ├── 45km
 │   │   └── 9km
 │   │
 │   ├── intermediate_processed      <- Intermediate processed and formatted data to prepare for analysis.
-│   └── final_for_analysis          <- Final KS test and return value results used for visualizations and analysis.                      
+│   └── final_for_analysis          <- Final KS test and return value results used for visualizations and further analysis.                      
 │                          
 ├── images
-│   ├── interactive                 <- Interactive HTML plots of results. Open using web browser.
+│   ├── interactive                 <- Interactive HTML plots of results. Open using a web browser.
 │   │   ├── ks_test
 │   │   ├── percent_change
 │   │   └── return_value
 │   │
-│   └── static                      <- Static SVG images of results.
+│   └── static                      <- Static SVG plots of results.
 │       ├── ks_test
 │       ├── percent_change
 │       └── return_value
 │                               
-├── notebooks                       <- Jupyter notebooks containing code (ordered). 
+├── notebooks                       <- Jupyter notebooks containing code (ordered by number and task). 
 │  
 ├── LICENSE                          
 ├── README.md                       <- Top-level README for developers using this project.  
