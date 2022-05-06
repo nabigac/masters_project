@@ -1,23 +1,9 @@
-# placeholder readme file
-# add information about where data was obtained
+# Data
 
-!pip install dask-cloudprovider==2021.9.0
-from dask.distributed import Client
-from dask_cloudprovider.aws import FargateCluster
-cluster = FargateCluster(n_workers=100, image='pangeo/pangeo-notebook:2021.10.19',
-                         environment=env, scheduler_timeout='10 minutes')
-client = Client(cluster)
-print(cluster.dashboard_link)
+The data in this study comes from dynamically downscaled global climate models from the 6th phase of the Coupled Model Intercomparison Project (CMIP6). The climate models were [dynamically downscaled](https://dept.atmos.ucla.edu/alexhall/downscaling-cmip6) to a higher resolution signal using Weather Research and Forecasting (WRF) model simulations across the western United States.
 
-os.environ['AWS_DEFAULT_REGION'] = 'us-west-1'
-env = {k: os.environ[k] for k in ('AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY')}
+Intial raw hourly temperature data from climate models was obtained and resampled to an annual maximum series using [Cal-Adapt Analytics Engine](https://analytics.cal-adapt.org/).
 
-cat = intake.open_catalog('s3://cdcat/cae.yaml')
-print(list(cat))
+The hourly temperature data is from two global climate models (CESM2 and CNRM-ESM2-1) and encompasses historical and future projected (from the SSP3-7.0 scenario) data ranging from 1980 to 2100.
 
-ds = cat['file_name_from_cat_list'].to_dask()
-da = ds['T2']
-
-ams = da.resample(time="A").max(keep_attrs=True)
-ams = ams.compute()
-ams.to_netcdf('./data/processed/9km/file_name_from_cat_list.nc')
+Data is formatted as netCDF datasets.
