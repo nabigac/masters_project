@@ -3,13 +3,11 @@
 
 <img
   src="./images/static/return_value/cesm2_hist_1980_rv_geo_plot.svg"
-  width="500"
-  height="350"
+  width="40%"
 />
 <img
   src="./images/static/return_value/cesm2_ssp370_2080_rv_geo_plot.svg"
-  width="500"
-  height="350"
+  width="40%"
 />
 
 **A repository containing the code, datasets, visualizations, and data products that correspond to the analytics in the UC Berkeley Energy & Resources Master's Project paper by Nabig Chaudhry.**
