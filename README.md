@@ -48,5 +48,5 @@ Climate change will alter extreme weather event exposure and consequently intens
 │                     
 ├── masters_project_functions.py    <- Core Python functions used in notebooks.
 │
-└── masters_project_paper.pdf.      <- Master's Project written paper detailing data, methods, and results.
+└── masters_project_paper.pdf       <- Master's Project written paper detailing data, methods, and results.
 ```
