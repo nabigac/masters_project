@@ -46,5 +46,7 @@ Climate change will alter extreme weather event exposure and consequently intens
 ├── README.md                       <- Top-level README for developers using this project.  
 ├── environment.yml                 <- Conda environment file. Create using `conda env create -f environment.yml`.
 │                     
-└── masters_project_functions.py    <- Core Python functions used in notebooks.
+├── masters_project_functions.py    <- Core Python functions used in notebooks.
+│
+└── masters_project_paper.pdf.      <- Master's Project written paper detailing data, methods, and results.
 ```
